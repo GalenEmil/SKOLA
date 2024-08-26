@@ -1,11 +1,6 @@
-# Skämt om Niord
-print("WASSAH Lieutenant")
+dic = {"banan": 1, "äpple": 2, "päron": 3}
 
-# Skämt om Niord
-print("WASSAH Lieutenant")
+print(dic)
 
-# Fråga om namn
-namn = input("Vad heter du? ")
-
-# Hälsa på namnet
-print("Hej", namn)
+for x, y in dic.items():
+    print(x, y)
