@@ -28,6 +28,10 @@ student2 = {
     "courses": ["Programmering 2", "Engelska 6", "Fysik 1"]
 }
 
+student2["program"] = "EE22"
+
+print(student2)
+
 print(student1["name"], "går i programmet", student1["program"], "och är", student1["age"], "gammal")
 
 # Lägga in flera dictionaries i en lista

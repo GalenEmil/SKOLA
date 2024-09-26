@@ -1,0 +1,12 @@
+<title> Hello from Flask</title>
+<h1> Stor rubrik</h1>
+<!-- Det här är en synlig kommentar i html-->
+
+{#Det här är en hemlig kommentar i jinja#}
+
+{% if name %}
+    <h2>Hej {{ name }}!</h2>
+{% else %}
+    <h2>Hej, världen!</h2>
+{% endif %}
+
