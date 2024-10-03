@@ -4,3 +4,5 @@ dic = {
 
 if dic.get('green') == 1:
     print("yes")
+
+print("Hello World!")
