@@ -1,0 +1,9 @@
+<!DOCTYPE html>
+<title>Slumpat lösenord generator</title>
+<h1>Välkommen till en slumpat lösenords generator!</h1>
+
+{% if result %}
+    <h2>Ditt nya lösenord: {{result}}</h2>
+{% else %}
+    <h2>There was a problem!</h2>
+{% endif %}

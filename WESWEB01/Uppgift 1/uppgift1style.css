@@ -1,0 +1,54 @@
+/*CSS-kod till uppgift 1 och uppgift 2*/
+html {
+    background-color: lightslategray;
+}
+
+body {
+    margin: auto;
+    max-width: 600px;
+    height: 600px;
+    font-family: sans-serif;
+    background-color: azure;
+}
+
+/*Regel för h1*/
+h1 {
+    color: purple;
+    text-align: center;
+}
+
+/*Kantlinje*/
+div {
+    border-width: 1px;
+    border-style: solid;
+    border-color: purple;
+    border-radius: 5px;
+}
+
+/*Div regel för billy och bob*/
+#billy {
+    color: darkred;
+}
+
+#bob {
+    color: darkgreen;
+}
+
+/*Regel för andra p i båda divvarna*/
+.two {
+    font-size: larger;
+}
+
+/*Regel för tredje p i båda divvarna*/
+.three {
+    font-size: smaller;
+}
+/* Göra Länken genomstruken*/
+#bob a {
+    text-decoration: line-through;
+}
+
+#bob .two a {
+    text-decoration: underline overline;
+    color: orange;  
+}

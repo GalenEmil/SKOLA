@@ -29,7 +29,7 @@ public:
             return 0;
         }
         return strength + modifier;
-    };
+    }
 };
 
 

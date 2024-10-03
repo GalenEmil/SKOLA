@@ -1,0 +1,9 @@
+<!DOCTYPE html>
+<title>Slumpad tal generator</title>
+<h1>Välkommen till en slumpad tals generator!</h1>
+
+{% if result %}
+    <h2>You rolled a: {{result}}!  You've rolled the dice {{counter}} times </h2>
+{% else %}
+    <h2>There was a problem!</h2>
+{% endif %}

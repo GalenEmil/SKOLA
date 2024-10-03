@@ -76,7 +76,7 @@ def jacob(text):
     dicFärst = {}
     nyssFärst = 3141592
     
-    # Robin Metod
+    # Robin Metod. Fungerar
     """
     nyssFärst = min(dic.values())
     for x, y in dic.items():
@@ -87,7 +87,8 @@ def jacob(text):
         if y == nyssFlest:
             dicFlest[x] = y
     """
-    # Emil Metod
+    # Emil Metod 1. Fungerar inte
+    """
     for x in range(100):
         for key in dic:
             if dic[key] >= nyssFlest:
@@ -96,10 +97,20 @@ def jacob(text):
             if dic[key] <= nyssFärst:
                 nyssFärst = dic[key]
                 dicFärst[key] = nyssFärst
-                
-    
     print(f"Mest vanliga - ({dicFlest})")
     print(f"Mest ovanliga - ({dicFärst})")
+    """
+    # Emil metod 2
+    # Hittar största och minsta värdet
+    nyssFärst = min(dic.values())
+    nyssFlest = max(dic.values())
+    # Loopar igenom 
+    for x in dic.items():
+        if dic[x] == nyssFlest:
+            dicFlest[x] = dic[x]
+    for x in dic.items():
+        if dic[x] == nyssFärst:
+            dicFärst[x] = dic[x]
 
 
 # Skriv ut

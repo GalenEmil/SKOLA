@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block title %}My Company - About us{% endblock %}
+
+{% block content %}
+
+<h1>About Us</h1>
+    {% for member in team_members %}
+        <h2>{{ member.name }} - {{ member.title }}</h2>
+        <p>{{ member.bio }}</p>
+    {% endfor %}
+
+{% endblock %}
