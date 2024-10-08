@@ -1,0 +1,22 @@
+/*b {
+    margin: auto;
+    max-width: 860px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+*/
+
+.kropp {
+    height: 80vh;
+}
+
+footer
+{
+    margin-top: 3em;
+    text-align: center;
+    color: #999;
+    flex: 0 0 100%;
+}
+

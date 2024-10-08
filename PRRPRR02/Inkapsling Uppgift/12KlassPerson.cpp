@@ -33,7 +33,9 @@ int main() {
 
     // Vad är problemet?
     // Svar:
-    // Jag antar att problemet innan var att det skulle stå att Erick inte hade tagit körkort än. Men han kunde inte haft det eftersom han är under 18 år.
+    // Jag antar att problemet innan var att det skulle stå att Erick inte hade tagit körkort än.
+    // Men han kunde ändå inte haft det eftersom han är under 18 år.
+    // Om man inte ändrade variabeln till ett orimligt värde i denna fil.
     // Svara här i en kommentar.
     // Ha kvar raden nedan.
     p2.acquireLicense();

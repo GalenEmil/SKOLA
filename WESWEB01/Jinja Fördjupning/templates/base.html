@@ -1,18 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <link rel = "stylesheet" href = "static/styles.css">
     <title>{% block title %}My Company{% endblock %}</title>
 </head>
 <body>
-    <nav>
-        <a href="/">Home</a> |
-        <a href="/about">About</a> |
-        <a href="/advice">Advice Generator</a>
-        <a href="/products">Our Products</a>
-    </nav>
-
-    {% block content %}
-    {% endblock %}
+    <div class="kropp">
+        <nav>
+            <a href="/">Home</a> |
+            <a href="/about">About</a> |
+            <a href="/advice">Advice Generator</a>
+            <a href="/products">Our Products</a>
+        </nav>
+        {% block content %}
+        {% endblock %}
+    </div>
     <footer>Copyright (C) 2024 My Company, Inc. Don't Buy Bartolomeus. You And Our Company Will Be Charged With Human Trafficking.😅😅😅</footer>
 </body>
 </html>

@@ -6,18 +6,32 @@
 using namespace std;
 
 class HotelRoom {
-public:
+private:
     int number;
     bool booked;
-
+public:
+    // Konstruktor
+    HotelRoom(int number, bool booked) : number(number), booked(booked)
+    { };
     void checkIn() {
-        booked = true;
-
+        if (booked == false)
+        {
+            booked = true;
+        } else 
+        {
+            cout << "Felmeddelande(checkin)" << endl;
+        }
         cout << "Room #" << number << ": A guest checked in." << endl;
     }
 
     void checkOut() {
-        booked = false;
+        if (booked == true)
+        {
+            booked = false;
+        } else 
+        {
+            cout << "Felmeddelande(checkout)" << endl;
+        }
 
         cout << "Room #" << number << ": A guest checked out." << endl;
     }
@@ -25,7 +39,7 @@ public:
     void printStatus() {
         cout << "Room #" << number << " is: ";
 
-        if(booked) {
+        if(booked == true) {
             cout << "Booked" << endl;
         } else {
             cout << "Available" << endl;

@@ -47,7 +47,7 @@ def circleArea(radie):
     print ("Cirkelns area är:", area)
     return 0
 
-# Funktion för att räkna ut hur många gånger ord upprepas
+# Funktion för att räkna ut hur många gånger ord upprepas(utmaning)
 def frekvensAvOrd(text):
     # Skapar lista med alla listans ord
     listaMedOrd = text.split()
@@ -67,14 +67,14 @@ def frekvensAvOrd(text):
     # Om man vill använda dictionariet till något annat
     return dic
 
-# Funktion för att se vanligaste och ovanligaste orden i en mening
+# Funktion för att se vanligaste och ovanligaste orden i en mening(utmaning)
 def jacob(text):
     # Dictionary/Lexikon
     dic = frekvensAvOrd(text)
     dicFlest = {}
-    nyssFlest = 0
+    #nyssFlest = 0
     dicFärst = {}
-    nyssFärst = 3141592
+    #nyssFärst = 3141592
     
     # Robin Metod. Fungerar
     """
@@ -102,17 +102,24 @@ def jacob(text):
     """
     # Emil metod 2
     # Hittar största och minsta värdet
-    nyssFärst = min(dic.values())
-    nyssFlest = max(dic.values())
-    # Loopar igenom 
-    for x in dic.items():
-        if dic[x] == nyssFlest:
-            dicFlest[x] = dic[x]
-    for x in dic.items():
-        if dic[x] == nyssFärst:
-            dicFärst[x] = dic[x]
-
-
+    Färst = min(dic.values())
+    Flest = max(dic.values())
+    # Loopar igenom lexikonet som har antalet ord
+    # Lägger till de ord som det finns flest respektive färst av i sina lexikon
+    for key, value in dic.items():
+        if dic[key] == Flest:
+            dicFlest[key] = dic[key]
+        if dic[key] == Färst:
+            dicFärst[key] = dic[key]
+    # Skriv ut
+    print(f"Vanligaste -", end=" ")
+    for key, value in dicFlest.items():
+        print(f"{key}({value})", end=" ")
+    print("\n")
+    print(f"Mest Ovanligt -", end=" ")
+    for key, value in dicFärst.items():
+        print(f"{key}({value})", end=" ")
+    print("\n")
 # Skriv ut
 print("Din lärare:", generateNameAndTitle())
 print("Din chef :", generateNameAndTitle())

@@ -2,33 +2,7 @@
 
 using namespace std;
 
-// Klassen beskriver data och beteende hos *alla* människor.
-class Person {
-public:
-    // Egenskaper
-    string name;
-    int age;
-    ConvenientLength height;
-    long int personnummer;
-
-    // Konstruktor
-    Person(string name, int age, ConvenientLength height, long int personnummer) : name(name), age(age), height(height), personnummer(personnummer)
-    { };
-    // Konstruktor för folk som inte skriver ålder
-    Person(string name, ConvenientLength height, long int personnummer) : name(name), age(0), height(height), personnummer(personnummer)
-    { };
-
-    // Metod
-    void greet() {
-        cout << "Hej, jag heter " << name;
-        cout << " och jag är " << age << " år gammal!" << endl;
-        cout << "Jag är " << height.byCountry() <<  " cm lång!" << endl;
-        cout << "Jag tänker inte berätta mitt personnummer!" << endl;
-    };
-};
-
 // Utmaning
-// Jag tog land som en egenskap
 class ConvenientLength {
 public:
     // Egenskap
@@ -37,7 +11,6 @@ public:
     // Konstruktor som tar bara längd
     ConvenientLength(float lenMeter, string land) : lenMeter(lenMeter), land(land)
     { };
-
     float meter() {
         return lenMeter;
     }
@@ -58,25 +31,59 @@ public:
             return feet();
         } else if (land == "Sverige") {
             return centimeter();
+        } else {
+            cout << "Inget Land" << endl;
+            return 0;
         }
 
     }
+};
+
+// Klassen beskriver data och beteende hos *alla* människor.
+class Person {
+public:
+    // Egenskaper
+    string name;
+    int age;
+    ConvenientLength height;
+    long int personnummer;
+
+    // Konstruktor
+    Person(string name, int age, ConvenientLength height, long int personnummer) : name(name), age(age), height(height), personnummer(personnummer)
+    { };
+    // Konstruktor för folk som inte skriver ålder
+    Person(string name, ConvenientLength height, long int personnummer) : name(name), age(0), height(height), personnummer(personnummer)
+    { };
+
+    // Metod
+    void greet() {
+        string enhet;
+        if (height.land == "USA") {
+            enhet = "feet";
+        } else if (height.land == "Sverige") {
+            enhet = "cm";
+        }
+        cout << "Hej, jag heter " << name;
+        cout << " och jag är " << age << " år gammal!" << endl;
+        cout << "Jag är " << height.byCountry() << enhet << " lång!" << endl;
+        cout << "Jag tänker inte berätta mitt personnummer!" << endl;
+    };
 };
 
 
 int main() {
     // Använda klassen och skapa några objekt (specifika personer).
 
-    Person dave("Dave", 19, ConvenientLength(150, "USA"), 200508233234);
-    Person angela("Angela", 24,  ConvenientLength(160, "Sverige"), 200003156969);
-    Person jacob("Jacob", 27, ConvenientLength(170, "USA"), 199709112001);
-    Person ted("Ted", 50, ConvenientLength(70, "Sverige"), 202411111111);
-/*  
+    Person dave("Dave", 19, ConvenientLength(2, "USA"), 200508233234);
+    Person angela("Angela", 24, ConvenientLength(1.5, "Sverige"), 200003156969);
+    Person jacob("Jacob", 27, ConvenientLength(1.80, "USA"), 199709112001);
+    Person ted("Ted", 50, ConvenientLength(1.90, "Sverige"), 202411111111);
+  
     dave.greet();
     angela.greet();
     jacob.greet();
     ted.greet();
-*/
+
     ConvenientLength bart(1, "USA");
     ConvenientLength bartolomeus(10, "Sverige");
 
