@@ -4,41 +4,38 @@
 #include <string>
 
 using namespace std;
-
-class Goblin {
+// Goblin och Dragon är båda... Varelser
+class Varelser {
 public:
     int health;
     int damage;
+    string race;
+    bool breathFire;
 
-    Goblin(int h, int d) : health(h), damage(d) {}
+    Varelser(int h, int d, string r, bool b) : health(h), damage(d), race(r), breathFire(b) {}
+    // Konstruktor utan fire breath
+    // Sätter fireBreath till false automatiskt
+    Varelser(int h, int d, string r) : health(h), damage(d), race(r), breathFire(false) {}
 
     void attack() {
-        cout << "Goblin attacks, dealing " << damage << " damage." << endl;
+    cout << race << " attacks, dealing " << damage << " damage." << endl;
+        if (breathFire == true) {
+            cout << race << " breathes fire for additional damage." << endl;
+            }
     }
 
     void receiveDamage(int d) {
         health -= d;
-        cout << "Goblin receives " << d << " damage! Health is now " << health << "." << endl;
+        cout << race << " receives " << d << " damage! Health is now " << health << "." << endl;
     }
 };
 
-class Dragon {
+class Goblin : public Varelser{
 public:
-    int health;
-    int damage;
-    bool breathFire;
+    Goblin(int h, int d) : Varelser(h, d, "Goblin") {}
+};
 
-    Dragon(int h, int d, bool b) : health(h), damage(d), breathFire(b) {}
-
-    void attack() {
-        cout << "Dragon attacks, dealing " << damage << " damage." << endl;
-        if (breathFire) {
-            cout << "Dragon breathes fire for additional damage." << endl;
-        }
-    }
-
-    void receiveDamage(int d) {
-        health -= d;
-        cout << "Dragon receives " << d << " damage! Health is now " << health << "." << endl;
-    }
+class Dragon : public Varelser{
+public:
+    Dragon(int h, int d, bool b) : Varelser(h, d, "Dragon", b) {}
 };

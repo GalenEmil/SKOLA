@@ -5,33 +5,33 @@
 
 using namespace std;
 // Basklass
-// Smartphone och Smartwatch är... devices, eller var... bättre förr?
-class Detvarbättreförr {
+// Smartphone och Smartwatch är båda... devices
+class Devices {
 public:
     string manufacturer;
     int year;    
 
-    Detvarbättreförr(string m, int y) : manufacturer(m), year(y) {};
+    Devices(string m, int y) : manufacturer(m), year(y) {};
 
     void showTime() {
         cout << "The time is 8:23!" << endl;
     }
 };
 
-class Smartphone : public Detvarbättreförr{
+class Smartphone : public Devices{
 public:
     int cameraMegapixels;
 
-    Smartphone(string m, int y, int cm) : Detvarbättreförr(m, y), cameraMegapixels(cm) {}
+    Smartphone(string m, int y, int cm) : Devices(m, y), cameraMegapixels(cm) {}
 
     void takePhoto() {
         cout << "Taking a photo with a " << cameraMegapixels << " megapixel camera!" << endl;
     }
 };
 
-class Smartwatch : public Detvarbättreförr{
+class Smartwatch : public Devices{
 public:
     bool waterproof;
 
-    Smartwatch(string m, int y, bool wp) : Detvarbättreförr(m, y), waterproof(wp) {}
+    Smartwatch(string m, int y, bool wp) : Devices(m, y), waterproof(wp) {}
 };

@@ -5,29 +5,29 @@
 
 using namespace std;
 // Basklass
-// Sköld och bröstplatta är båda... Armor eller... för mesar
-class Messmör {
+// Sköld och bröstplatta är båda... Armor
+class Armor {
 public:
     string name;
     int defense;
 
-    Messmör(string n, int d) : name(n), defense(d) {}
+    Armor(string n, int d) : name(n), defense(d) {}
 };
 
-class Shield : public Messmör {
+class Shield : public Armor {
 public:
-    Shield(string n, int d) : Messmör(n, d) {}
+    Shield(string n, int d) : Armor(n, d) {}
 
     void blockAttack() {
         cout << "Blocking with " << name << ", provides " << defense << " defense." << endl;
     }
 };
 
-class Chestplate : public Messmör {
+class Chestplate : public Armor {
 public:
     bool isMagicResistant;
 
-    Chestplate(string n, int d, bool m) : Messmör(n, d), isMagicResistant(m) {}
+    Chestplate(string n, int d, bool m) : Armor(n, d), isMagicResistant(m) {}
 
     void wear() {
         cout << "Wearing " << name << ", defense level " << defense;

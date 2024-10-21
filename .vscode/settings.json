@@ -2,5 +2,6 @@
     "editor.suggest.showStatusBar": false,
     "files.associations": {
         "iostream": "cpp"
-    }
+    },
+    "python.terminal.executeInFileDir": true
 }

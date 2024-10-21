@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+    <h1>This is the to-do-list!</h1>
+    <h1>Welcome {{session.get('name')}} </h1>
+    <p>You have successfully logged in.</p>
+{% endblock %}

@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, session # Session är som cookies
-
+import csv
+"""
 lista2d = [
     {'username': 'admin', 'password': '1234'},
     {'username': 'john', 'password': 'asdf'},
@@ -7,6 +8,33 @@ lista2d = [
     {'username': 'sarah', 'password': '9876'},
     {'username': 'bartolomeus', 'password': '1234'},
 ]
+#            print(row['username'], row['password'])
+"""
+
+# Lista som ska imitera den ovan
+listaMedLex = []
+# Funktion som ska läsa av csv filen och lägga in det i ett lexikon
+def readCSV(csv_file):
+    global listaMedLex
+    tempCounter = 0
+    # Öppna filen
+    with open(csv_file, newline='') as csvfile:
+        # Läs av filen
+        reader = csv.reader(csvfile)
+        print(reader)
+        # Gå igenom varje rad av filen och lägg till det i listaMedLex
+        for row in reader:
+            #print(type(row)) Det är en lista
+            # Jag ville ta len(reader) men eftersom det inte går så tog jag bara en siffra, 10
+            listaMedLex.append({})
+            listaMedLex[tempCounter]['username'] = row[0]
+            listaMedLex[tempCounter]['password'] = row[1]
+            tempCounter += 1
+        print(listaMedLex)
+
+readCSV("users.csv")
+
+session[listaMedLex] = listaMedLex
 
 app = Flask(__name__)
 app.secret_key = 'MuBC1EstEby8rRH6Td2J'
@@ -27,17 +55,17 @@ def login():
     if request.method == 'POST':
         username = request.form['username'] # Användarens användarnamn
         password = request.form['password'] # Användarens lösenord
-        for x in range(len(lista2d)):
-            if username == lista2d[x]['username'] and password == lista2d[x]['password']:
+        for x in range(len(listaMedLex)):
+            if username == listaMedLex[x]['username'] and password == listaMedLex[x]['password']:
                 session['logged_in'] = True
                 session['username'] = username
                 session['password'] = password
                 return redirect(url_for('secret'))
         else:
-            return "Invalid credentials. Please try again.", 401
+            return "<p>Invalid credentials. Please try again.</p>", 401
     else:
         if session.get('logged_in'):
-            return "You are already logged in!", 200
+            return "<p>You are already logged in!</p>", 200
         else:
             return render_template('login.html')
 
@@ -61,12 +89,15 @@ def logout():
 
         return redirect(url_for('login'))
     elif session['logged_in'] == False:
-        return "You are already logged out", 200
+        return "<p>You are already logged out</p>", 200
 
 @app.route('/supersecret')
 def supersecret():
     if session.get('username') == 'admin':
-        return "Welcome to the supersecret lair"
+        return "<p>Welcome to the super secret page that only admins can see.</p>"
+
+    elif session.get('logged_in') == True:
+        return redirect(url_for('secret'))
     else:
         return redirect(url_for('login'))
 

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel = "stylesheet" href = "static/styles.css">
+    <title>{% block title %}To-do-list{% endblock %}</title>
+</head>
+<body>
+    <div class="kropp">
+        <nav>
+            <a href="/">Home</a> |
+            <a href="/login">Login</a> |
+            <a href="/about">About</a> |
+            <a href="/logout">Log out</a> |
+            <a href="/register">Tillfällig register länk. Ska göra så att den bara visas om man är utloggad</a> |
+        </nav>
+        {% block content %}
+        {% endblock %}
+    </div>
+    <footer>Copyright (C) 2024, Bartolomeus</footer>
+</body>
+</html>
