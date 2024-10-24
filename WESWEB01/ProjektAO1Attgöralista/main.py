@@ -5,6 +5,8 @@ toDoList = []
 
 listaMedLex = []
 
+toDoList=[]
+
 os.chdir(r'C:\Users\emil.bonevnilsson\Github\SKOLA\WESWEB01\ProjektAO1Attgöralista')
 
 # Funktion som ska läsa av csv filen och lägga in det i ett lexikon
@@ -15,19 +17,14 @@ def readCSV(csv_file):
     with open(csv_file, newline='') as csvfile:
         # Läs av filen
         reader = csv.reader(csvfile)
-        print(reader)
         # Gå igenom varje rad av filen och lägg till det i listaMedLex
         for row in reader:
-            print(type(row)) # Det är en lista
-            print(row)
-            print(reader)
-            print(row[0])
+            #print(type(row)) # Det är en lista
             listaMedLex.append({})
             listaMedLex[tempCounter]['mail'] = row[0]
             listaMedLex[tempCounter]['password'] = row[1]
             listaMedLex[tempCounter]['name'] = row[2]
             tempCounter += 1
-        print(listaMedLex)
 
 def writeCSV(csv_file):
     global listaMedLex
@@ -47,12 +44,28 @@ app = Flask(__name__)
 app.secret_key = 'MuBC1EstEby8rRH6Td2J'
 
 # Standardrutt, Home
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def home():
-    if session.get('logged_in'):
-        return render_template('home.html', session=session)
+    if session.get('toDoList') == None:
+        session['toDoList'] = toDoList
+    toDoList = session['toDoList']
+    if request.method == 'POST':
+        if session.get('logged_in'):
+            # Lägger till en ny sak och beskrivning i listan
+            toDoList.append({})
+            item = request.form['item']
+            desc = request.form['desc']
+            toDoList[-1]['item'] = item
+            toDoList[-1]['desc'] = desc
+            session['toDoList'] = toDoList
+            return render_template('home.html', session=session, toDoList=toDoList)
+        else:
+            return redirect(url_for('register'))
     else:
-        return redirect(url_for('login'))
+        if session.get('logged_in'):
+            return render_template('home.html', session=session, toDoList=toDoList)
+        else:
+            return render_template('register.html')
 
 # Login rutt
 @app.route('/login', methods=['GET', 'POST'])
@@ -60,10 +73,7 @@ def login():
     if request.method == 'POST':
         mail = request.form['mail'] # Användarens E-mail
         password = request.form['password'] # Användarens lösenord
-        print(mail)
-        print(password)
         for x in listaMedLex:
-            print(x)
             if mail == x['mail'] and password == x['password']:
                 session['logged_in'] = True
                 session['mail'] = mail
@@ -104,9 +114,6 @@ def register():
         mail = request.form['mail'] # Användarens E-mail
         password = request.form['password'] # Användarens lösenord
         name = request.form['name'] # Användarens namn
-        print(mail)
-        print(password)
-        print(name)
     # Om någon av värdena är toma så kommer det ett felmed
         if len(name) <= 0 or len(password) <= 0 or len(mail) <= 0:
             # Lägg in användarens uppgifter i lexikonet

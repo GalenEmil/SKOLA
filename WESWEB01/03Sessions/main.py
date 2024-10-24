@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, session # Session är som cookies
 import csv
+import os
 """
 lista2d = [
     {'username': 'admin', 'password': '1234'},
@@ -11,6 +12,8 @@ lista2d = [
 #            print(row['username'], row['password'])
 """
 
+os.chdir(r'C:\Users\emil.bonevnilsson\Github\SKOLA\WESWEB01\03Sessions')
+fil = 'users.csv'
 # Lista som ska imitera den ovan
 listaMedLex = []
 # Funktion som ska läsa av csv filen och lägga in det i ett lexikon
@@ -32,9 +35,7 @@ def readCSV(csv_file):
             tempCounter += 1
         print(listaMedLex)
 
-readCSV("users.csv")
-
-session[listaMedLex] = listaMedLex
+readCSV(fil)
 
 app = Flask(__name__)
 app.secret_key = 'MuBC1EstEby8rRH6Td2J'

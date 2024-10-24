@@ -12,7 +12,7 @@ public:
     string name;
     int age;
     int salary;
-
+    
     Worker(string name, int age, int salary) : name(name), age(age), salary(salary) {}
 
     // Gemensamma metoder

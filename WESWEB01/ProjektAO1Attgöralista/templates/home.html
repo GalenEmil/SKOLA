@@ -3,7 +3,18 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-    <h1>This is the to-do-list!</h1>
     <h1>Welcome {{session.get('name')}} </h1>
-    <p>You have successfully logged in.</p>
+    <h1>This is the to-do-list!</h1>
+    <p>Add a new item</p>
+    {% for dic in toDoList %}
+        <ul>
+            <li><strong>{{ dic.item }}:</strong> {{ dic.desc }}. <a href="">Delete</a></li>
+        </ul>
+    {% endfor %}
+
+    <form method="post">
+        <p>Item: <input type="text" name="item" placeholder=""></p>
+        <p>Description: <input type="text" name="desc" placeholder=""></p>
+        <p><input type="submit" value="Add"></p>
+    </form>
 {% endblock %}
