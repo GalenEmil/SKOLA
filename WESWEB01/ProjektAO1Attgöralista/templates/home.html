@@ -8,7 +8,18 @@
     <p>Add a new item</p>
     {% for dic in toDoList %}
         <ul>
-            <li><strong>{{ dic.item }}:</strong> {{ dic.desc }}. <a href="">Delete</a></li>
+            {% if 'exist' %}
+                <p> Something is True </p>
+                <li>
+                    <strong>{{ dic.item }}:</strong> {{ dic.desc }}. 
+                    <form method="post">
+                        <input type="hidden" name="index" value="{{ loop.index0 }}">
+                        <p><input type="submit" value="Delete"></p>
+                    </form>
+                </li>
+            {% else %}
+                <p> Something is False </p>
+            {% endif %}
         </ul>
     {% endfor %}
 

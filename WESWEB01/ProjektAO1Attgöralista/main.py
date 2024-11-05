@@ -1,7 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, session # Session är som cookies
 import csv
 import os
-toDoList = []
 
 listaMedLex = []
 
@@ -46,6 +45,7 @@ app.secret_key = 'MuBC1EstEby8rRH6Td2J'
 # Standardrutt, Home
 @app.route('/', methods=['GET', 'POST'])
 def home():
+    global toDoList
     if session.get('toDoList') == None:
         session['toDoList'] = toDoList
     toDoList = session['toDoList']
@@ -57,6 +57,7 @@ def home():
             desc = request.form['desc']
             toDoList[-1]['item'] = item
             toDoList[-1]['desc'] = desc
+            toDoList[-1]['exist'] = True
             session['toDoList'] = toDoList
             return render_template('home.html', session=session, toDoList=toDoList)
         else:
@@ -65,7 +66,7 @@ def home():
         if session.get('logged_in'):
             return render_template('home.html', session=session, toDoList=toDoList)
         else:
-            return render_template('register.html')
+            return redirect(url_for('register'))
 
 # Login rutt
 @app.route('/login', methods=['GET', 'POST'])
@@ -114,8 +115,13 @@ def register():
         mail = request.form['mail'] # Användarens E-mail
         password = request.form['password'] # Användarens lösenord
         name = request.form['name'] # Användarens namn
-    # Om någon av värdena är toma så kommer det ett felmed
+    # Om någon av värdena är toma så kommer det ett felmeddelande
+        print(len(name))
+        print(len(password))
+        print(len(mail))
         if len(name) <= 0 or len(password) <= 0 or len(mail) <= 0:
+            return "<p>Invalid credentials. Please try again.</p>", 401
+        else:
             # Lägg in användarens uppgifter i lexikonet
             listaMedLex.append({})
             listaMedLex[-1]['mail'] = mail
@@ -128,14 +134,18 @@ def register():
             session['password'] = password
             session['name'] = name
             return redirect('/')
-        else:
-            return "<p>Invalid credentials. Please try again.</p>", 401
     else:
         if session.get('logged_in'):
             return "<p>You are already logged in!</p>", 200
         else:
             return render_template('register.html')
-
-
+"""
+@app.route('/delete/<int:index>')
+def delete(index):
+    global toDoList
+    toDoList[index]['exist'] = False
+    session['toDoList'] = toDoList
+    return render_template('home.html', session=session, toDoList=toDoList)
+"""
 if __name__ == '__main__':
     app.run(debug=True)

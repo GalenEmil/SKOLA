@@ -1,0 +1,42 @@
+.header{
+    background-color: black;
+    color: lightblue;
+    text-align: center;
+    margin: 15px;
+    padding: 20px;
+    border: 2px solid gray;
+    border-radius: 5px;
+}
+
+.content{
+    color: hotpink;
+    margin: 15px;
+    padding: 20px;
+    border: 2px solid gray;
+    border-radius: 5px;
+}
+
+.new{
+    color: orange;
+    margin: 15px;
+    border: 2px solid gray;
+    border-radius: 5px;
+    text-decoration: underline;
+}
+/*
+Gjorde ena divven med ett id som heter "one" 
+Den får samma egenskaper som klassen har men overridear text-decoration med line-through
+*/
+.new#one{
+    text-decoration: line-through;
+}
+
+.footer{
+    background-color: black;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}   
