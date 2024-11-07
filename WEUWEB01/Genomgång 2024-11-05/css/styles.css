@@ -1,3 +1,8 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 .header{
     background-color: black;
     color: lightblue;
@@ -22,6 +27,8 @@
     border: 2px solid gray;
     border-radius: 5px;
     text-decoration: underline;
+    text-align: left;
+    padding: 90px;
 }
 /*
 Gjorde ena divven med ett id som heter "one" 
