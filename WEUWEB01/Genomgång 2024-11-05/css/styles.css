@@ -2,6 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: sans-serif;
 }
 .header{
     background-color: black;
@@ -25,10 +26,10 @@
     color: orange;
     margin: 15px;
     border: 2px solid gray;
-    border-radius: 5px;
+    border-radius: 40px;
     text-decoration: underline;
     text-align: left;
-    padding: 90px;
+    padding: 19px;
 }
 /*
 Gjorde ena divven med ett id som heter "one" 
@@ -38,12 +39,69 @@ Den får samma egenskaper som klassen har men overridear text-decoration med lin
     text-decoration: line-through;
 }
 
-.footer{
+
+footer{
+    width: 100%;
     background-color: black;
     color: white;
-    padding: 20px;
-    text-align: center;
+    margin-top: 150px;
+    padding: 100px 15%;
     position: fixed;
+    display: flex;
     bottom: 0;
+}
+
+footer div{
+    text-align: center;
+}
+
+footer div h3{
+    /*Font-weight vet jag inte vad den gör*/
+    font-weight: 300;
+    /*Margin bottom gör att titeln har ett avstånd från länkarna/innehållet*/
+    margin-bottom: 30px;
+}
+
+footer div a{
+    display: block;
+    /*Solid tar bort underline som är på från början*/
+    text-decoration: solid;
+    /*Color ersätter både den färgen som länken har när man hoverar musen, när den inte är klickad och när den redan är klickad*/
+    color: white;
+    
+}
+
+footer div a:hover{
+    /*Ersätter hoverfärg med rosa*/
+    color: hotpink;
+}
+
+footer form input{
+    width: 400px;
+    height: 45px;
+    border-radius: 15px;
+    text-align: center;
+    margin-bottom: 40px;    
+    border: none;
+}
+
+form button{
+    background: transparent;
+    border: 2px solid white;
+    color: white;
+    border-radius: 30px;
+    padding: 10px 30px;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+#ett{
     width: 100%;
-}   
+}
+#två{
+    /*I flex boxen så tar nu kolumn 2 upp två platser*/
+    flex-grow: 2;
+}
+#tre{
+    width: 100%;
+}
