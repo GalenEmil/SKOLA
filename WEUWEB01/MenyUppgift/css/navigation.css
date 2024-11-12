@@ -46,7 +46,8 @@ li
 }
 
 body{
-    background-color: white;
+    background-color: whitesmoke;
+    text-align: center;
 }
 ul
 {
@@ -91,16 +92,15 @@ h1
 }
 
 /*Gör så att hela sidan blir vit*/
-body
-{
-    text-align: center;
-    background-color: whitesmoke;
-}
 
 p 
 {
-    padding: 0vb;
-    padding-right: 0vb;
+    padding: 20px;
+    margin: 20px;
+    /*Gör en vågig underlinje*/
+    text-decoration-line: underline;
+    text-decoration-style: wavy;
+    text-decoration-thickness: 2,5px;
 }
 
 /*Gör så att Copyright delen hamnar längre ner. Det görs med 3 em som är en slags enhet som är relativ till texten*/
