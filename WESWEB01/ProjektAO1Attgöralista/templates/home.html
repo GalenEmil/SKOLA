@@ -5,20 +5,20 @@
 {% block content %}
     <h1>Welcome {{session.get('name')}} </h1>
     <h1>This is the to-do-list!</h1>
-    <p>Add a new item</p>
+    <p class="add">Add a new item</p>
     {% for dic in toDoList %}
         <ul>
             {% if 'exist' %}
-                <p> Something is True </p>
+            <p></p>
                 <li>
-                    <strong>{{ dic.item }}:</strong> {{ dic.desc }}. 
-                    <form method="post">
+                    <h2><strong>{{ dic.item }}:</strong> {{ dic.desc }}</h2>
+                    <form method="post" action="/delete">
                         <input type="hidden" name="index" value="{{ loop.index0 }}">
-                        <p><input type="submit" value="Delete"></p>
+                        <p class="button"><input type="submit" value="Delete"></p>
                     </form>
                 </li>
             {% else %}
-                <p> Something is False </p>
+            <p></p>
             {% endif %}
         </ul>
     {% endfor %}

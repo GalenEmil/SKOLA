@@ -1,0 +1,54 @@
+/*Resetta css. Andreas rekommenderar det*/
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+/*Header*/
+h1{
+    background-color: black;
+    color: white;
+    text-align: center;
+    margin: 15px;
+    padding: 20px;
+    border: 2px solid gray;
+    border-radius: 10px;
+}
+/*Titeln för todolist:an*/
+.add{
+    border: 2px solid white;
+    background-color: black;
+    color: white;
+    padding: 5px;
+    width: 10%;
+    text-align: center;
+    border-radius: 10px;
+}
+/*Hela listan*/
+ul{
+    border: 2px solid white;
+    background-color: black;
+    color: white;
+    padding: 5px;
+    width: 40%;
+    border-radius: 10px;
+}
+/*Alla knappar */
+input{
+    background: transparent;
+    border: 2px solid purple;
+    color: purple;
+    border-radius: 10px;
+    padding: 10px 30px;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+footer{
+    width: 100%;
+    color: purple;
+    position: fixed;
+    display: flex;
+    bottom: 0;
+}

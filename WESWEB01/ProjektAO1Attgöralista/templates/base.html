@@ -1,17 +1,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel = "stylesheet" href = "static/styles.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css')}}">
     <title>{% block title %}To-do-list{% endblock %}</title>
 </head>
 <body>
     <div class="kropp">
         <nav>
             <a href="/">Home</a> |
-            <a href="/login">Login</a> |
             <a href="/about">About</a> |
-            <a href="/logout">Log out</a> |
-            <a href="/register">Tillfällig register länk. Ska göra så att den bara visas om man är utloggad</a> |
+            {# Dold kommentar #}
+            {# Gör så att logout länk bara visas när man är inloggad och login länk när man är utloggad #}
+            {% if session.get('logged_in') == True %}
+                <a href="/logout">Log out</a> |
+            {% else %}
+                <a href="/login">Login</a> |
+                <a href="/register">Register</a> |
+            {% endif %}
         </nav>
         {% block content %}
         {% endblock %}

@@ -42,6 +42,16 @@ writeCSV(fil)
 app = Flask(__name__)
 app.secret_key = 'MuBC1EstEby8rRH6Td2J'
 
+@app.route('/delete', methods=['GET', 'POST'])
+def delete():
+    global toDoList
+    toDoList = session.get('toDoList')
+    if request.method == 'POST':
+        index = request.form['index']
+        print(index)
+        toDoList.pop(int(index))
+        session['toDoList'] = toDoList
+    return redirect(url_for('home'))
 # Standardrutt, Home
 @app.route('/', methods=['GET', 'POST'])
 def home():
@@ -116,9 +126,6 @@ def register():
         password = request.form['password'] # Användarens lösenord
         name = request.form['name'] # Användarens namn
     # Om någon av värdena är toma så kommer det ett felmeddelande
-        print(len(name))
-        print(len(password))
-        print(len(mail))
         if len(name) <= 0 or len(password) <= 0 or len(mail) <= 0:
             return "<p>Invalid credentials. Please try again.</p>", 401
         else:
@@ -126,7 +133,7 @@ def register():
             listaMedLex.append({})
             listaMedLex[-1]['mail'] = mail
             listaMedLex[-1]['password'] = password
-            listaMedLex[-1]['name'] = mail
+            listaMedLex[-1]['name'] = name
             # Lägg in användarens uppgifter i csv filen
             writeCSV(fil)
             session['logged_in'] = True
@@ -139,13 +146,6 @@ def register():
             return "<p>You are already logged in!</p>", 200
         else:
             return render_template('register.html')
-"""
-@app.route('/delete/<int:index>')
-def delete(index):
-    global toDoList
-    toDoList[index]['exist'] = False
-    session['toDoList'] = toDoList
-    return render_template('home.html', session=session, toDoList=toDoList)
-"""
+
 if __name__ == '__main__':
     app.run(debug=True)
