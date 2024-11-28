@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roll Dice</title>
+</head>
+<body>
+    <h1>Roll the Dice!</h1>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul>
+                {% for category, message in messages %}
+                    <li class="{{ category }}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+    <form action="{{ url_for('dice') }}" method="post">
+        <button type="submit">Roll Dice</button>
+        
+        <label for="diceType">Choose a dice:</label>
+        <select name="diceType" id="diceType">
+            <option value="4">4-sidig tärning</option>
+            <option value="6">6-sidig tärning</option>
+            <option value="8">8-sidig tärning</option>
+            <option value="10">10-sidig tärning</option>
+            <option value="12">12-sidig tärning</option>
+            <option value="20">20-sidig tärning</option>
+        </select>
+    </form>
+
+    <h2>Dice Roll History</h2>
+    <p>Du har kastat: {{ rolls | count }} gånger</p>
+    <table>
+        <thead>
+            <tr>
+                <th>User ID</th>
+                <th>Roll</th>
+                <th>Time</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for roll in rolls %}
+            <tr>
+                <td>{{ roll.user_id }}</td>
+                <td>{{ roll.roll }}</td>
+                <td>{{ roll.timestamp }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
