@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forum</title>
+</head>
+<body>
+    <h1>Welcome to the Forum!</h1>
+    <nav>
+        <a href="{{ url_for('login') }}">Login</a> |
+        <a href="{{ url_for('register') }}">Register</a> |
+        <a href="{{ url_for('dice') }}">Roll Dice</a> |
+        <a href="{{ url_for('post') }}">Forum</a>
+    </nav>
+    {% if username %}
+        <p>Welcome, {{ username }}</p>
+    {% else %}
+        <p>You are not logged in!</p>
+    {% endif %}
+
+    <form method="post">
+        <p><input type="text" name="title" placeholder="Title"></p>
+        <textarea type="text" name="text" placeholder="Text"></textarea>
+        <p><input type="submit" value="Add"></p>
+        <input type="hidden" value="newPost" name="operation">
+    </form>
+
+    <form action="{{ url_for('post') }}" method="post">
+        <button type="submit">Update</button>
+        <input type="hidden" value="sorting" name="operation">
+        <label for="diceType">Sorting Options</label>
+        <select name="sortingType" id="sortingType">
+            <option value="all">All Posts</option>
+            <option value="mine">My Posts</option>
+            <option value="old">Oldest Posts</option>
+            <option value="new">Latest Posts</option>
+        </select>
+    </form>
+
+    {% for post in posts %}
+    <ul>
+        <h2>{{ post.title }}</h2>
+        <li>{{ post.text }}</li>
+        <li>user-id {{ post.user_id }}</li>
+        <li>{{ post.timestamp }}</li>
+    </ul>
+    {% endfor %}
+</body>
+</html>

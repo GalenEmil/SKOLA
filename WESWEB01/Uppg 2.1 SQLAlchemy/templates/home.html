@@ -10,7 +10,8 @@
     <nav>
         <a href="{{ url_for('login') }}">Login</a> |
         <a href="{{ url_for('register') }}">Register</a> |
-        <a href="{{ url_for('dice') }}">Roll Dice</a>
+        <a href="{{ url_for('dice') }}">Roll Dice</a> |
+        <a href="{{ url_for('post') }}">Forum</a>
     </nav>
     {% if username %}
         <p>Welcome, {{ username }}</p>

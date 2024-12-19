@@ -7,6 +7,12 @@
 </head>
 <body>
     <h1>Register</h1>
+    <nav>
+        <a href="{{ url_for('login') }}">Login</a> |
+        <a href="{{ url_for('register') }}">Register</a> |
+        <a href="{{ url_for('dice') }}">Roll Dice</a> |
+        <a href="{{ url_for('post') }}">Forum</a>
+    </nav>
     {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
             <ul>

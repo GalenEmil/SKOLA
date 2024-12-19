@@ -30,7 +30,19 @@ class DiceRoll(db.Model):
     roll = db.Column(db.Integer, nullable=False)
     timestamp = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
     # Ska spara vilken sorts tärning man har valt i databasen 
-    diceType = db.Column(db.integer, nullable=False)
+    diceType = db.Column(db.Integer, nullable=False)
+
+# Spara inlägg i databas
+class UserPosts(db.Model):
+    # ID för inlägg
+    id = db.Column(db.Integer, primary_key=True)
+    # ID för användaren som inlägget tillhör
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    # Text och titel i inlägget
+    title = db.Column(db.String(80), nullable=False)
+    text = db.Column(db.String(80), nullable=False)
+    # Tiden för inlägget
+    timestamp = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
 
 # Create the database
 with app.app_context():
@@ -93,14 +105,20 @@ def dice():
     if request.method == 'POST':
         diceType = request.form['diceType']
         user_id = session['user_id']
+        # Försöker komma ihåg senaste kastets tärningtyp
+        lastDiceType = diceType
+        if session.get('lastDiceType') is None:
+            session['lastDiceType'] = '4' # Lägsta tärningstypen
+        session['lastDiceType'] = lastDiceType
         roll = random.randint(1, int(diceType))
-        new_roll = DiceRoll(user_id=user_id, roll=roll, diceType=int(diceType)
+        new_roll = DiceRoll(user_id=user_id, roll=roll, diceType=int(diceType))
         db.session.add(new_roll)
         db.session.commit()
         flash(f'You rolled a {roll}!', 'success')
-
+    elif request.method == 'GET':
+        lastDiceType = '4'
     rolls = DiceRoll.query.filter_by(user_id=session['user_id']).order_by(DiceRoll.timestamp.desc()).all()
-    return render_template('dice.html', rolls=rolls, username=session['username'])
+    return render_template('dice.html', rolls=rolls, lastDiceType=lastDiceType, username=session['username'])
 
 # Route for logging out
 @app.route('/logout')
@@ -108,6 +126,31 @@ def logout():
     session.clear()
     flash('You have been logged out.', 'info')
     return redirect(url_for('home'))
+
+@app.route('/post', methods=['GET', 'POST'])
+def post():
+    if request.method == 'POST':
+        if request.form['operation'] == 'newPost':
+            user_id = session['user_id']
+            title = request.form['title']
+            text = request.form['text']
+            new_post = UserPosts(user_id=user_id, title=title, text=text)
+            db.session.add(new_post)
+            db.session.commit()
+            posts = UserPosts.query.all()
+        else:
+            sortingType = request.form['sortingType']
+            if sortingType == 'all':
+                posts = UserPosts.query.order_by(UserPosts.timestamp.desc()).all()
+            elif sortingType == 'mine':
+                posts = UserPosts.query.filter_by(user_id=session['user_id']).order_by(UserPosts.timestamp.desc()).all()
+            elif sortingType == 'old':
+                posts = UserPosts.query.order_by(UserPosts.timestamp.asc()).all()
+            elif sortingType == 'new':
+                posts = UserPosts.query.order_by(UserPosts.timestamp.desc()).all()
+    elif request.method == 'GET':
+        posts = UserPosts.query.all()
+    return render_template('post.html', posts=posts, username=session['username'])
 
 if __name__ == '__main__':
     app.run(debug=True, port=1000)

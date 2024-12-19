@@ -7,6 +7,12 @@
 </head>
 <body>
     <h1>Roll the Dice!</h1>
+    <nav>
+        <a href="{{ url_for('login') }}">Login</a> |
+        <a href="{{ url_for('register') }}">Register</a> |
+        <a href="{{ url_for('dice') }}">Roll Dice</a> |
+        <a href="{{ url_for('post') }}">Forum</a>
+    </nav>
     {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
             <ul>
@@ -21,6 +27,7 @@
         
         <label for="diceType">Choose a dice:</label>
         <select name="diceType" id="diceType">
+            <option value="{{ lastDiceType }}">Samma som sist</option>
             <option value="4">4-sidig tärning</option>
             <option value="6">6-sidig tärning</option>
             <option value="8">8-sidig tärning</option>
@@ -37,6 +44,7 @@
             <tr>
                 <th>User ID</th>
                 <th>Roll</th>
+                <th>Dicetype</th>
                 <th>Time</th>
             </tr>
         </thead>
@@ -45,6 +53,7 @@
             <tr>
                 <td>{{ roll.user_id }}</td>
                 <td>{{ roll.roll }}</td>
+                <td>d{{ roll.diceType }} </td>
                 <td>{{ roll.timestamp }}</td>
             </tr>
             {% endfor %}

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css')}}">
+    <title>{% block title %}Midgard Systems{% endblock %}</title>
+</head>
+<body>
+    <div class="body">
+        <nav class="nav">
+            {# Dold kommentar i Jinja#}
+            <a href="/">Hem</a> 
+            <a href="/about">Om oss</a> 
+            <a href="/contact">Kontakta oss</a> 
+            <a href="/portfolio">Portfölj</a>
+        </nav>
+        {% block content %}
+        {% endblock %}
+        <footer>Copyright (C) 2024</footer>
+    </div>
+</body>
+</html>

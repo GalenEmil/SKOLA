@@ -1,0 +1,59 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    height: 100vh;
+    display: grid;
+    grid-template-areas:
+        'header header header header header header'
+        'menu main main main main main'
+        'footer footer footer footer footer footer';
+    grid-template-columns: 5% 5% 5% 5% 5% 5% 5% 5% 5% 5% 5% 5% 5% 5% 5% 5% 5% 5% 5% 5%;
+    grid-template-rows: 5% 5% 5% 5% 5% 5% 5% 5% 5% 5% 5% 5% 5% 5% 5% 5% 5% 5% 5% 5%;
+}
+
+/*Grid row start och end*/
+/*Grid column start och end*/
+/*Det är de jag använder för att positionera divvarna rätt*/
+/*Med "inspect" verktyget så kan man se griden i sidan*/
+.header {
+    background-color: #4CAF50;
+    color: white;
+    text-align: center;
+    padding: 1em;
+    grid-column-start: 1;
+    grid-column-end: end;
+    grid-row-start: 1;
+    grid-row-end: 2;
+}
+
+.menu{
+    background-color: gray;
+    padding: 1em;
+    color: black;
+    grid-row-start: 2;
+    grid-row-end: 20;
+    grid-column-start: 1;
+    grid-column-end: 5;
+}
+.content {
+    padding: 1em;
+    grid-row-start: 2;
+    grid-row-end: 20;
+    grid-column-start: 5;
+    grid-column-end: end;
+}
+
+.footer {
+    background-color: #4CAF50;
+    color: white;
+    text-align: center;
+    padding: 1em;
+    grid-column-start: 1;
+    grid-column-end: end;
+    grid-row-start: 20;
+    grid-row-end: 20;
+}
