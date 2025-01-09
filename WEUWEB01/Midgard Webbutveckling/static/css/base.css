@@ -20,6 +20,9 @@
     width: 50vw;
     order: 0;
     align-self: center;
+    align-self: flex-start;
+    height: 10vh;
+    margin-top: 10px;
 }
 
 .nav{
@@ -28,6 +31,7 @@
     width: 50vw;
     order: 1;
     justify-content: flex-end;
+    height: 10vh;
 }
 
 .nav a{
@@ -42,6 +46,14 @@
 }
 .slogan{
     order: 2;
+    text-align: center;
+    margin-left: 10%;
+    margin-right: 10%;
+    align-self: stretch;
+}
+
+#sloganAbout{
+    height: 65vh;
 }
 
 .bild{
@@ -58,4 +70,9 @@ footer{
     order: 10;
     align-self: flex-end;
     justify-self: flex-start;
+}
+
+.person{
+    order: 3;
+    text-align: center;
 }
