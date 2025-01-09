@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, session # Session är som cookies
+from flask import Flask, render_template, request, redirect, url_for, session # Session är som cookies. Används inte dock i sidan
 
 app = Flask(__name__)
 app.secret_key = 'MuBC1EstEby8rRH6Td2J'
