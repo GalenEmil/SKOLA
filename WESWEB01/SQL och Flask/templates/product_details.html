@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Product Details</title>
+</head>
+<body>
+    {% if product %}
+        <h1>{{ product['name'] }}</h1>
+        <p>Category: {{ product['category'] }}</p>
+        <p>Price: ${{ product['price'] }}</p>
+    {% else %}
+        <p>Product not found.</p>
+    {% endif %}
+
+
+    <h1>Leave a review</h1>
+    <form method="POST" action="{{ url_for('product_details', product_id=product['id']) }}">
+        <label for="user_id">User:</label>
+        <select id="user_id" name="user_id">
+            {% for user in users %}
+                <option value="{{ user['id'] }}">{{ user['username'] }}</option>
+            {% endfor %}
+        </select>
+        <br><br>
+
+        <label for="rating">Your Rating:</label>
+        <select name="rating" id="rating">
+            <option value="0">0🌟?!</option>
+            <option value="1">1🌟</option>
+            <option value="2">2🌟</option>
+            <option value="3">3🌟</option>
+            <option value="4">4🌟</option>
+            <option value="5">5🌟</option>
+        </select>
+        <br><br>
+
+        <label for="date">Purchase Date:</label>
+        <input type="date" id="date" name="date" required>
+        <br><br>
+
+        <label for="date">Your review:</label>
+        <input type="text" id="text" name="text" required>
+        <br><br>
+
+        <input type="hidden" id="product_id" name="product_id" value="{{ product['id'] }}">
+
+        <input type="submit" value="Post review">
+    </form>
+    <br><br>
+    <label>Other Reviews:</label>
+    {% for review in reviews %}
+        {% if  review['product_id']  ==  product['id']  %}
+            {% if loop.index <= 10 %}
+            <ul>
+                <li>
+                    {% for user in users %}
+                        {% if user['id'] == review['user_id'] %}
+                            <p>User {{ user['username'] }}</p>
+                        {% endif %}
+                    {% endfor %}
+                    <p>Rating {{ review['rating'] }}🌟</p>
+                    {% if review['text'] %}
+                        <p>Comment {{ review['text'] }}</p>
+                    {% endif %}
+                    <p>Date {{ review['date'] }}</p>
+                </li>
+            </ul>
+            {% endif %}
+        {% endif %}
+    {% endfor %}
+
+    <p>
+        <a href="{{ url_for('index') }}">Back to Home</a>
+    </p>
+
+</body>
+</html>

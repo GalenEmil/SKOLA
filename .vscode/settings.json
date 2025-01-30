@@ -1,7 +1,10 @@
 {
     "editor.suggest.showStatusBar": false,
     "files.associations": {
-        "iostream": "cpp"
+        "iostream": "cpp",
+        "ostream": "cpp",
+        "numbers": "cpp"
     },
-    "python.terminal.executeInFileDir": true
+    "python.terminal.executeInFileDir": true,
+    "cmake.sourceDirectory": "C:/Users/emil.bonevnilsson/Github/SKOLA/PRRPRR02/QtHelloWorld"
 }

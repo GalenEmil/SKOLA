@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Make a Purchase</title>
+</head>
+<body>
+    <h1>Make a Purchase</h1>
+    <form method="POST" action="{{ url_for('purchase') }}">
+        <label for="user_id">User:</label>
+        <select id="user_id" name="user_id">
+            {% for user in users %}
+                <option value="{{ user['id'] }}">{{ user['username'] }}</option>
+            {% endfor %}
+        </select>
+        <br><br>
+
+        <label for="product_id">Product:</label>
+        <select id="product_id" name="product_id">
+            {% for product in products %}
+                <option value="{{ product['id'] }}">{{ product['name'] }}</option>
+            {% endfor %}
+        </select>
+        <br><br>
+
+        <label for="date">Purchase Date:</label>
+        <input type="date" id="date" name="date" required>
+        <br><br>
+
+        <input type="submit" value="Submit Purchase">
+    </form>
+    <p>
+        <a href="{{ url_for('index') }}">Back to Home</a>
+    </p>
+</body>
+</html>

@@ -1,0 +1,3 @@
+/mnt/c/Users/emil.bonevnilsson/Github/SKOLA/PRRPRR02/QtHelloWorld/build/CMakeFiles/QtHelloWorld.dir
+/mnt/c/Users/emil.bonevnilsson/Github/SKOLA/PRRPRR02/QtHelloWorld/build/CMakeFiles/edit_cache.dir
+/mnt/c/Users/emil.bonevnilsson/Github/SKOLA/PRRPRR02/QtHelloWorld/build/CMakeFiles/rebuild_cache.dir

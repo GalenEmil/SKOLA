@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Flask Example - Home</title>
+</head>
+<body>
+    <h1>Welcome to Our Store</h1>
+    <h2>Products</h2>
+    <p>
+        {{ user['username'] }}  
+        {{ user['email'] }}
+    </p>
+    
+    <ul>
+        {% for purchase in purchases %}
+            {% for product in products %}
+                    {% if purchase['product_id'] == product['id'] and purchase['user_id'] == user['id'] %}
+                    <li>
+                        {{ product['name'] }}
+                        - ${{ product['price'] }}
+                        - {{ purchase['date'] }}
+                    </li>
+                    {% endif %}
+            {% endfor %}
+        {% endfor %}
+    </ul>
+
+    <p>Total is ${{ summa[0] }}</p>
+
+    <a href="/">Go back</a>
+
+</body>
+</html>
