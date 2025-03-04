@@ -1,5 +1,6 @@
 import os
 import sqlite3
+import time
 from flask import Flask, request, render_template, g, redirect, url_for
 
 app = Flask(__name__)
@@ -39,75 +40,54 @@ def index():
     users = cursor.fetchall()
     return render_template('index.html', products=products, users=users)
 
-@app.route('/user/<int:user_id>')
-def user(user_id):
-    # Öppnar databas
-    db = get_db()
-    # Hämtar purchases från databas
-    cursor = db.execute('SELECT * FROM purchases')
-    purchases = cursor.fetchall()
-    # Hämtar users från databas
-    cursor = db.execute('SELECT * FROM users WHERE id=?', (user_id,))
-    user = cursor.fetchone()
-    # Hämtar products från databas
-    cursor = db.execute('SELECT * FROM products')
-    products = cursor.fetchall()
-    # Hämtar summan
-    cursor = db.execute('SELECT sum(price) FROM(SELECT * FROM purchases JOIN products ON purchases.product_id = products.id) WHERE user_id = ?;', (user_id,))
-    summa = cursor.fetchone()
-    return render_template('user.html', purchases=purchases, user=user, products=products, summa=summa)
-
 @app.route('/product/<int:product_id>', methods=['GET', 'POST'])
 def product_details(product_id):
     """
     Show details for a specific product using a URL parameter (product_id).
     """
     db = get_db()
-    # Hämta recensionerna
     cursor = db.execute('SELECT * FROM products WHERE id=?', (product_id,))
     product = cursor.fetchone()
+
     users = db.execute('SELECT * FROM users').fetchall()
-    cursor = db.execute('SELECT * FROM reviews WHERE product_id = ?', (product_id,))
-    reviews = cursor.fetchall()
-    # Måste köras innan listan blir sorterad och slicead
-    avarage = 0
-    sum = 0
-    count = 0
-    for review in reviews:
-        if review['product_id'] == product['id']:
-            sum += review['rating']
-            count += 1
-    if count <= 0:
-        pass
-    else:
-        avarage = sum/count
 
     if request.method == 'POST':
-        action = request.form.get('action')  # Kolla vilken knapp som klickades
-        if action == 'post_review':
-            text = request.form['text']
-            user_id = request.form['user_id']
-            date = request.form['date']
-            rating = request.form['rating']
-            db.execute('INSERT INTO reviews (user_id, product_id, date, text, rating) VALUES (?, ?, ?, ?, ?)',
-            (user_id, product_id, date, text, rating))
-            db.commit()
-        elif action == 'sort_reviews':
-            # Hantera sortering
-            sort_option = request.form['sorting']  # T.ex. "Highest Rating"
-            if sort_option == "high":
-                reviews = sorted(reviews, key=lambda r: r['rating'], reverse=True)
-            elif sort_option == "low":
-                reviews = sorted(reviews, key=lambda r: r['rating'])
-            elif sort_option == "new":
-                reviews = sorted(reviews, key=lambda r: r['date'], reverse=True)
-            elif sort_option == "old":
-                reviews = sorted(reviews, key=lambda r: r['date'])
+        rating = request.form['rating']
+        text = request.form['text']
+        user_id = request.form['user_id']
+        date = time.ctime()
+        db.execute('INSERT INTO reviews (rating, text, product_id, user_id, date) VALUES (?, ?, ?, ? ,?)',
+                   (rating, text, product_id, user_id, date))
+        db.commit()
 
-            # Visa bara de 10 första efter sortering
-            reviews = reviews[:10]
 
-    return render_template('product_details.html', product=product, users=users, reviews=reviews, avarage=avarage)
+    try:
+        Sort = request.args['Sort']
+        reviews = db.execute(f'SELECT * FROM reviews WHERE product_id=? {Sort}', (product_id,)).fetchall()[0:10]
+    except:
+        reviews = db.execute('SELECT * FROM reviews WHERE product_id=? ORDER BY date DESC', (product_id,)).fetchall()[0:10]
+
+    try:
+        averageRating = db.execute('SELECT avg(rating) FROM reviews WHERE product_id=?', (product_id,)).fetchone()[0]
+        averageRating = round(averageRating, 1)
+    except:
+        averageRating = 0
+
+    return render_template('product_details.html', product=product, users=users, product_id=product_id, reviews=reviews, averageRating=averageRating)   
+
+@app.route('/info/<int:user_id>')
+def user_info(user_id):
+    db = get_db()
+    cursor = db.execute('SELECT * FROM users WHERE id=?', (user_id,))
+    user = cursor.fetchone()
+
+    cursor = db.execute('SELECT name, price, date FROM purchases JOIN products ON purchases.product_id = products.id WHERE user_id=?', (user_id,))
+    purchases = cursor.fetchall()
+
+    cursor = db.execute('SELECT sum(price) FROM purchases JOIN products ON purchases.product_id = products.id WHERE user_id=?', (user_id,))
+    sum = cursor.fetchone()[0]
+
+    return render_template('info_user.html', user=user, purchases=purchases, sum=sum)
 
 @app.route('/add_user', methods=['GET', 'POST'])
 def add_user():
@@ -134,7 +114,7 @@ def purchase():
         product_id = request.form['product_id']
         date = request.form['date']
         db.execute('INSERT INTO purchases (user_id, product_id, date) VALUES (?, ?, ?)',
-        (user_id, product_id, date))
+                   (user_id, product_id, date))
         db.commit()
         return redirect(url_for('index'))
 
@@ -180,13 +160,15 @@ def init_db():
         # Create the reviews table
         cur.execute("""
         CREATE TABLE IF NOT EXISTS reviews (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            user_id INTEGER NOT NULL,
-            product_id INTEGER NOT NULL,
-            date DATE NOT NULL,
-            text TEXT NOT NULL,
-            FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE,
-            FOREIGN KEY(product_id) REFERENCES product(id) ON DELETE CASCADE
+	        "id"	INTEGER NOT NULL UNIQUE,
+	        "rating"	INTEGER NOT NULL,
+	        "user_id"	TEXT,
+	        "text"	TEXT,
+	        "product_id"	INTEGER NOT NULL,
+	        "date"	DATE,
+	        PRIMARY KEY("id"),
+	        FOREIGN KEY("product_id") REFERENCES "products"("id") ON DELETE CASCADE,
+	        FOREIGN KEY("user_id") REFERENCES "users"("id") ON DELETE CASCADE
         );
         """)
 

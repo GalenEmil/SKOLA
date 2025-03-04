@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Product Details</title>
+</head>
+<body>
+    {% if product %}
+        <h1>{{ product['name'] }}</h1>
+        <p>Category: {{ product['category'] }}</p>
+        <p>Price: ${{ product['price'] }}</p>
+        <a href="{{ url_for('index') }}"><button>Back to Home</button></a>
+        <h2>Reviews</h2>
+
+        <form method="POST" action="">
+        User:
+        <select id="user_id" name="user_id" required>
+            <option value="" disabled selected hidden>Choose User...</option>
+            {% for user in users %}
+                <option value="{{ user['username'] }}">{{ user['username'] }}</option>
+            {% endfor %}
+        </select><br><br>
+        Rating:
+            <select id="rating" name="rating">
+                <option value="5">5</option>
+                <option value="4">4</option>
+                <option value="3">3</option>
+                <option value="2">2</option>
+                <option value="1">1</option>
+            </select><br><br>
+            Review: <br>
+            <textarea name="text" id="text" maxlength="200" style="width: 20vw; height: 17vh;"></textarea><br>
+            <input type="submit" value="Submit">
+        </form>
+
+        <br>
+        <form action="" method="get">
+            <select id="Sort" name="Sort">
+                <option value="" disabled selected hidden>Sort By...</option>
+                <option value="ORDER BY date DESC">Newest</option>
+                <option value="ORDER BY date ASC">Oldest</option>
+                <option value="ORDER BY rating DESC">Highest</option>
+                <option value="ORDER BY rating ASC">Lowest</option>
+            </select>
+            <input type="submit" value="Sort">
+        </form>
+        <br>
+        Average rating: {{ averageRating }}
+            <br><br>
+        {% for review in reviews %}
+            User:
+            {{ review['user_id'] }}
+                <br>
+            Rating:
+            {{ review['rating'] }}
+                <br>
+            {{ review['text'] }}
+                <br>
+            {{ review['date'] }}
+                <br><br>
+        {% endfor %}
+    {% else %}
+        <p>Product not found.</p>
+    {% endif %}
+</body>
+</html>

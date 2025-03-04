@@ -12,7 +12,7 @@
     {% else %}
         <p>Product not found.</p>
     {% endif %}
-
+    <p>Avarage Rating {{ avarage }}🌟</p>
 
     <h1>Leave a review</h1>
     <form method="POST" action="{{ url_for('product_details', product_id=product['id']) }}">
@@ -45,13 +45,22 @@
 
         <input type="hidden" id="product_id" name="product_id" value="{{ product['id'] }}">
 
-        <input type="submit" value="Post review">
+        <input type="submit" name="action" value="post_review">
     </form>
     <br><br>
     <label>Other Reviews:</label>
+    <br>
+    <form method="POST" action="{{ url_for('product_details', product_id=product['id']) }}">
+        <select name="sorting" id="sorting">
+            <option value="high">Highest Rating</option>
+            <option value="low">Lowest Rating</option>
+            <option value="new">Latest Reviews</option>
+            <option value="old">Oldest Reviews</option>
+        </select>
+        <input type="submit" name="action" value="sort_reviews">
+    </form>
     {% for review in reviews %}
         {% if  review['product_id']  ==  product['id']  %}
-            {% if loop.index <= 10 %}
             <ul>
                 <li>
                     {% for user in users %}
@@ -66,7 +75,6 @@
                     <p>Date {{ review['date'] }}</p>
                 </li>
             </ul>
-            {% endif %}
         {% endif %}
     {% endfor %}
 
