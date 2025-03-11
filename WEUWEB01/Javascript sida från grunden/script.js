@@ -60,3 +60,14 @@ resetKnapp.addEventListener("click", function(){
     body.style.color = "black"
     body.style.animationIterationCount = "0"
 });
+
+/* Skapa en knapp som lägger in en bild i sidan */
+
+let bildKnapp = document.getElementById("bildKnapp")
+let bildDiv = document.getElementById("bildDiv")
+
+bildKnapp.addEventListener("click", function(){
+    let bild = document.createElement("img")
+    bild.src = "man.png"
+    bildDiv.appendChild(bild)
+})

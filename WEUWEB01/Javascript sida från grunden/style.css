@@ -1,24 +1,22 @@
 body
 {
     opacity: 0.7;
-    display: block;
-    overflow: hidden;
     position: relative;
     background-color: #f3f3f3;
-/*
-    animation-duration: 3s;
-    animation-name: slide-in;
-    animation-iteration-count: infinite;
-    animation-direction: alternate;
-*/
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 
-/*
-#kaos
-{
-    display: block;
+#bildKnapp{
+    color: blue;
 }
-*/
+
+img{
+    border-radius: 100px;
+    box-shadow: 2px 2px 2px #888888;
+    width: 10%;
+}
 
 @keyframes slide-in {
     from {

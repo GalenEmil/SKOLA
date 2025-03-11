@@ -1,18 +1,39 @@
-from flask import Flask, request, jsonify
-
+import os
+import sqlite3
+from flask import Flask, request, jsonify, g, render_template, redirect, url_for
 app = Flask(__name__)
 
-# Sample data store
-items = [
-    {"id": 1, "name": "Item 1", "price": 10.99},
-    {"id": 2, "name": "Item 2", "price": 15.49}
-]
+DATABASE = 'items.db'
+
+def get_db():
+    """
+    Establish a database connection for the current application context.
+    """
+    db = getattr(g, '_database', None)
+    if db is None:
+        db = sqlite3.connect(DATABASE)
+        db.row_factory = sqlite3.Row  # Enables name-based access to columns
+        g._database = db
+    return db
+
+@app.teardown_appcontext
+def close_connection(exception):
+    """
+    Close the database connection at the end of the request.
+    """
+    db = getattr(g, '_database', None)
+    if db is not None:
+        db.close()
 
 def find_item_by_id(item_id):
-    for item in items:
-        if item["id"] == item_id:
-            return item
-    return None
+    db = get_db()
+    cursor = db.execute('SELECT * FROM items WHERE id=?', (item_id,))
+    item = cursor.fetchall()
+    # Kolla om item finns
+    if item:
+        return item
+    else:
+        return None
 
 @app.route('/ping', methods=['GET'])
 def ping():
@@ -20,6 +41,9 @@ def ping():
 
 @app.route('/items', methods=['GET'])
 def get_items():
+    db = get_db()
+    cursor = db.execute('SELECT * FROM items')
+    items = cursor.fetchall()
     return jsonify(items)
 
 @app.route('/items/<int:item_id>', methods=['GET'])
@@ -35,6 +59,10 @@ def create_item():
     if not data or "name" not in data or "price" not in data:
         return jsonify({"error": "Invalid input"}), 400
     
+    db = get_db()
+    cursor = db.execute('')
+    temp_id = cursor.fetchone()
+    cursor = db.execute('INSERT INTO items (id, name, price) VALUES (?, ?, ?)', (id, data["name"], data["price"]))
     new_item = {
         "id": len(items) + 1,
         "name": data["name"],
