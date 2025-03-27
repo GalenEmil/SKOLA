@@ -14,7 +14,7 @@ int main() {
     cout << " -- LIST -- " << endl;
 
     // Skapa en lista med std::list
-    list<string> myList{"apple", "banana", "cherry"};
+    list<string> myList{"apple", "banana", "cherry", "cherry"};
 
     // Komma åt första och sista elementet
     cout << "Första elementet i listan: " << myList.front() << endl;
@@ -29,11 +29,17 @@ int main() {
     myList.pop_front(); // Tar bort första elementet i listan
 
     // Ta bort ett specifikt element genom iterator
-    
+    myList.remove("cherry");
+
+    // Test
+    // myList[0];
 
     // Mäta antal element
     cout << "Antal frukter: " << myList.size() << endl;
 
+    // Ta bort alla element i listan
+    // myList.clear();
+    
     // Loopa genom listan:
     cout << "Frukter i listan:" << endl;
     for (const string& s : myList) {

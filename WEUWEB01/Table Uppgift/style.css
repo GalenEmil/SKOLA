@@ -1,0 +1,38 @@
+table
+{
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td
+{
+    border: 4px solid darkmagenta;
+    padding: 8px;
+}
+
+.pris
+{
+    text-align: center;
+}
+
+th
+{
+    background-color: royalblue;
+}
+
+footer
+{
+    background-color: royalblue;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+}
+h1
+{
+    text-align: center;
+    color: darkmagenta;
+}

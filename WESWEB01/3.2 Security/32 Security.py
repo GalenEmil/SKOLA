@@ -59,11 +59,9 @@ def update_password():
     user_id = data.get('user_id', '')
     new_password = data.get('new_password', '')
 
-    query = f"UPDATE users SET password = '{new_password}' WHERE id = {user_id}"
-
     conn = sqlite3.connect(DATABASE)
     cursor = conn.cursor()
-    cursor.execute(query)
+    cursor.execute("UPDATE users SET password = ? WHERE id = ?", (new_password, user_id,))
     conn.commit()
     conn.close()
 
@@ -73,12 +71,15 @@ def update_password():
 def user_info():
     field = request.args.get('field', 'id')
     email = request.args.get('email', '')
-
-    query = f"SELECT {field} FROM users WHERE email = '{email}'"
-
+    query = f"SELECT {field} FROM users WHERE email = ?"
+    # Gör så att field inte kan vara Password
+    # Då kan man inte hämta det så lätt
+    if field == "password":
+        return jsonify({'code': 'Not allowed to request passwords'}), 401
+    
     conn = sqlite3.connect(DATABASE)
     cursor = conn.cursor()
-    cursor.execute(query)
+    cursor.execute(query, (email,))
     results = cursor.fetchone()
     conn.close()
 

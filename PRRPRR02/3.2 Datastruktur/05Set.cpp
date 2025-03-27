@@ -13,7 +13,7 @@ int main() {
     cout << " -- SET -- " << endl;
 
     // Skapa ett set
-    set<string> s{"apple", "banana", "cherry"};
+    set<string> s = {"apple", "banana", "cherry"};
 
     // Lägga till element
     s.insert("Persika"); // Lägg till ett element
@@ -34,6 +34,9 @@ int main() {
     }
     // Mäta antal element
     cout << "Antal element: " << s.size() << endl;
+
+    // Ta bort alla element ur set
+    // s.clear();
 
     // Loopa genom setet (sorterade!)
     cout << "Frukter i setet:" << endl;
