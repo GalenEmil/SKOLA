@@ -54,35 +54,39 @@ void TextEditor::countLetters()
 }
 
 void TextEditor::saveText()
-{
-    QFileDialog dialog(this);
-    dialog.setFileMode(QFileDialog::AnyFile);
-    dialog.setNameFilter(tr("Text Files (*.txt)"));
+{    
+    QString fileName = QFileDialog::getSaveFileName(this, tr("Save File"), "", tr("Text Files (*.txt);;All Files (*)"));
+   
+    if (fileName.isEmpty()) // Om användaren avbryter, gör inget
+    return;
+    
+    fileName = fileName.append(".txt");
+    std::ofstream MyFile(fileName.toStdString());
 
-    QStringList fileNames;
-    if (dialog.exec())
-    fileNames = dialog.selectedFiles();
+    if (!MyFile) { // Kontrollera om filen kunde öppnas/skapas
+        QMessageBox::warning(this, "Error", "Could not save the file!");
+        return;
+    }
 
-    QString text = textArea->toPlainText();
-
-    std::ofstream MyFile(fileNames[0].toStdString());
-
-    MyFile << text.toStdString();
+    MyFile << textArea->toPlainText().toStdString(); // Gör texten till cpp vänlig text
 
     MyFile.close();
 }
 
 void TextEditor::openFile()
 {
-    QFileDialog dialog(this);
-    dialog.setFileMode(QFileDialog::ExistingFiles);
-    dialog.setNameFilter(tr("Text Files (*.txt)"));
+    QString fileName = QFileDialog::getOpenFileName(this, tr("Open File"), "", tr("Text Files (*.txt);;All Files (*)"));
+    
+    if (fileName.isEmpty()) // Om användaren avbryter, gör inget
+    return;
 
-    QStringList fileNames;
-    if (dialog.exec())
-    fileNames = dialog.selectedFiles();
+    std::ifstream MyFile(fileName.toStdString());
 
-    std::ifstream MyFile(fileNames[0].toStdString());
+    if (!MyFile) { // Kontrollera om filen kunde öppnas/skapas
+        QMessageBox::warning(this, "Error", "Could not open the file!");
+        return;
+    }
+   
     std::stringstream buffer;
     buffer << MyFile.rdbuf();
 
