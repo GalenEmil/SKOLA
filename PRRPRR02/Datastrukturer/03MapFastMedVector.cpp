@@ -5,6 +5,10 @@
 
 using namespace std;
 
+// !!!
+// Tror inte jag blev klar med utmaning men jag börja åtminstone
+// Jag tror det är enklare att använda map än vector för det finns fler färdiga funktioner
+
 // Funktion för att få värdet för en nyckel
 float getValue(string userKey, vector<string> keys, vector<float> values){
     for(int i = 0; i < keys.size(); i++){
