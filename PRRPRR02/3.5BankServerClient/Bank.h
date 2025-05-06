@@ -36,6 +36,14 @@ public:
         return nullptr;
     }
 
+    void removeAccount(const std::string& username) {
+        auto it = accounts.find(username);
+        if (it != accounts.end()) {
+            delete it->second;
+            accounts.erase(it);
+        }
+    }
+
     void update() {
         for (auto& kv : accounts) {
             kv.second->update();

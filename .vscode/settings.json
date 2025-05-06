@@ -62,7 +62,7 @@
         "variant": "cpp"
     },
     "python.terminal.executeInFileDir": true,
-    "cmake.sourceDirectory": "C:/Users/emil.bonevnilsson/Github/SKOLA/PRRPRR02/QtHelloWorld",
+    "cmake.sourceDirectory": "/mnt/c/Users/emil.bonevnilsson/Github/SKOLA/PRRPRR02/3.3 QT",
     "git.ignoreLimitWarning": true,
     "github.copilot.enable": {
         "*": true,
