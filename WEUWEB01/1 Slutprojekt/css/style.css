@@ -17,6 +17,14 @@ html, body {
     min-height: 100vh;
 }
 
+#header{
+    text-decoration: none;
+}
+
+.title{
+    color: #FFDA22;
+}
+
 header{
     background-color: #004F2D;
     display: flex;
@@ -28,12 +36,6 @@ header{
     justify-content: space-between;
 }
 
-/*Gör så att h2 och button ligger i en rad*/
-h2{
-    text-align: left;
-    flex-grow: 1;
-}
-/*Gör så att knappen ligger längst åt höger*/
 button{
     border: none;
     padding: 15px 15px;
@@ -42,12 +44,22 @@ button{
     cursor: pointer;
 }
 
-
-.title{
-    color: #FFDA22;
+/*Gör så att knappen ligger längst åt höger*/
+.header-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
 }
 
-/*Förhindrar overflow*/
+.header-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+
+/*
+Förhindrar overflow
 .main-content {
     flex: 1;
     display: flex;
@@ -57,16 +69,30 @@ button{
     width: 100%;
     overflow-y: auto;
 }
+Gör ingenting längre
+*/
 
-img{
+.mainContent {
+    height: 100%;
     max-width: 100%;
     width: 100%;
-    height: auto;
     border-radius: 10px;
     max-height: 600px;
 }
 
-a{
+#backgroundImageContainer{
+    height: 70%;
+}
+
+img{
+    max-width: 100%;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+    max-height: 600px;
+}
+
+.navItem{
     color: #D87CAC;
     text-decoration: underline;
     padding: 10px;
@@ -77,7 +103,8 @@ a{
     text-align: center;
 }
 
-a:hover{
+
+.navItem:hover{
     background-color: #D87CAC;
     color: white;
 }
@@ -102,7 +129,7 @@ nav {
 }
 
 footer {
-    margin-top: 20px;
+    margin-top: 5px;
     padding: 20px;
     background-color: #004F2D;
     color: white;

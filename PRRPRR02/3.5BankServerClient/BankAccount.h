@@ -48,5 +48,6 @@ public:
 
     virtual void update() {
         // do absolutely nothing
+        
     }
 };
