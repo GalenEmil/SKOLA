@@ -85,12 +85,18 @@ Gör ingenting längre
     align-items: flex-start;
 }
 
-h3{
+
+.mainTitle{
     color: #004F2D;
     font-size: 2em;
-    margin: 20px 0;
+    margin: 6px;
+    padding: 12px;
 }
 
+/*
+Försökte göra så att produkterna ligger snyggt med flexbox
+Men det funkade inte så bra
+Så jag använde grid istället
 .productGrid{
     display: flex;
     flex-wrap: wrap;
@@ -103,6 +109,46 @@ h3{
     max-height: 600px;
     overflow-y: auto;
     overflow-x: hidden;
+}
+*/
+
+/*Gör så att produkterna ligger snyggt med grid*/
+.productGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    width: 100%;
+    overflow-y: auto;
+}
+
+.productCard {
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0px 2px 5px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    gap: 10px;
+}
+
+.productCard h5{
+    font-size: 1.2em;
+}
+.productCard h4{
+    font-size: 1.2em;
+}
+.productCard p{
+    font-size: 1.1em;
+}
+
+/*Ska göra så att det blir ett litet glow/skugga när man har musen över en produkt*/
+.productCard:hover {
+    box-shadow: 4px 8px 16px rgba(0,0,0,0.2);
+    transition: box-shadow 0.3s;
 }
 
 .productCard h4{
@@ -167,8 +213,47 @@ footer {
     padding: 20px;
     background-color: #004F2D;
     color: white;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    font-size: 1.6em;
+    justify-content: space-between;
+    gap: 20px;
     text-align: center;
     width: 100%;
+    height: 60vh;
+}
+
+.footerContact{
+    display: flex;
+    flex-direction: column;
+}
+
+.footerSocial{
+    display: flex;
+    flex-direction: column;
+}
+
+@media (min-width: 768px) {
+    footer {
+        flex-direction: row;
+        justify-content: center;
+        height: auto;
+    }
+}
+
+.fa {
+    padding: 20px;
+    font-size: 30px;
+    width: 50px;
+    text-align: center;
+    text-decoration: none;
+    color: black;
+
+}
+
+.fa:hover {
+    opacity: 0.7;
 }
 
 /* Nattläge */
