@@ -78,13 +78,20 @@ Gör ingenting längre
     width: 100%;
     border-radius: 10px;
     max-height: 600px;
-    background-color: lightgrey;
     opacity: 0.8;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
 }
 
+#aboutContent{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 25px;
+    font-size: large;
+    font-family: 'Courier New', Courier, monospace;
+}
 
 .mainTitle{
     color: #004F2D;
@@ -282,4 +289,18 @@ body.night button {
 body.night footer {
     background-color: #1e1e1e;
     color: #ffffff;
+}
+
+body.night .productCard {
+    background-color: #1e1e1e;
+    color: #ffffff;
+}
+
+body.night h4 {
+    color: #FFDA22;
+}
+
+
+body.night h3 {
+    color: #FFDA22;
 }
